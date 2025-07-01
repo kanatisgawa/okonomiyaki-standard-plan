@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メニュー - お好み焼き 塚本</title>
+    <meta name="description" content="お好み焼き塚本の全メニューを詳しくご紹介。豊富なお好み焼きメニュー、名物ポッカ、季節限定メニューなど充実のラインナップ。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'MS PGothic', sans-serif;
+            line-height: 1.7;
+            color: #fff;
+            overflow-x: hidden;
+            background: #1a1a1a;
+            font-size: 16px;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(204, 0, 0, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background: rgba(204, 0, 0, 0.8);
+        }
+
+        /* 予約ボタン */
+        .reservation-btn {
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(204,0,0,0.3);
+            display: inline-block;
+        }
+
+        .reservation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204,0,0,0.4);
+        }
+
+        /* メインコンテンツ */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 140px);
+        }
+
+        .page-header {
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(26,26,26,0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a1a1a" width="100%" height="100%"/><circle fill="%23cc0000" cx="600" cy="400" r="300" opacity="0.6"/><circle fill="%23ff3333" cx="400" cy="600" r="200" opacity="0.4"/></svg>');
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            background: linear-gradient(45deg, #fff, #ffcccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .menu-category {
+            margin-bottom: 5rem;
+        }
+
+        .category-title {
+            font-size: 2.2rem;
+            color: #ff6666;
+            margin-bottom: 1rem;
+            position: relative;
+            font-weight: 700;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            border-radius: 2px;
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+        }
+
+        .category-description {
+            color: #ccc;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* 名物メニューのハイライト */
+        .signature-menu {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            border: 2px solid #ff6666;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signature-menu::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,102,102,0.1) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .signature-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .signature-title {
+            font-size: 2.2rem;
+            color: #ff6666;
+            margin-bottom: 1.5rem;
+        }
+
+        .signature-description {
+            font-size: 1.2rem;
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        /* メニューグリッド */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid #444;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(204,0,0,0.3);
+            border-color: #ff6666;
+        }
+
+        .menu-image {
+            height: 200px;
+            background: linear-gradient(135deg, #cc0000, #ff3333);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(243,156,18,0.4);
+        }
+
+        .new-badge {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        .menu-info {
+            padding: 2rem;
+        }
+
+        .menu-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6666;
+            margin-bottom: 0.8rem;
+        }
+
+        .menu-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff3333;
+            margin-bottom: 1.2rem;
+        }
+
+        .menu-description {
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .menu-ingredients {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+
+        /* 特別メニュー */
+        .special-item {
+            border: 2px solid #f39c12;
+            position: relative;
+        }
+
+        .special-item::before {
+            content: '店主おすすめ';
+            position: absolute;
+            top: -12px;
+            left: 25px;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(243,156,18,0.4);
+        }
+
+        /* 季節限定メニュー */
+        .seasonal-item {
+            border: 2px solid #9b59b6;
+            background: linear-gradient(135deg, #2c1810 0%, #3e1f1f 100%);
+        }
+
+        .seasonal-item::before {
+            content: '季節限定';
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        }
+
+        /* 価格表 */
+        .price-section {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid #444;
+        }
+
+        .price-section h3 {
+            color: #ff6666;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .price-category {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #444;
+        }
+
+        .price-category h4 {
+            color: #ff6666;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .price-list {
+            list-style: none;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-item:hover {
+            background: rgba(255,102,102,0.1);
+            margin: 0 -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 8px;
+        }
+
+        .item-name {
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .item-price {
+            color: #ff6666;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* セットメニュー */
+        .set-menu {
+            background: linear-gradient(135deg, #1a2f1a 0%, #2d4a2d 100%);
+            border: 2px solid #27ae60;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .set-title {
+            color: #2ecc71;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .set-description {
+            color: #a9d3a9;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .set-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .set-option {
+            background: rgba(46,204,113,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #27ae60;
+        }
+
+        .set-option h5 {
+            color: #2ecc71;
+            margin-bottom: 0.5rem;
+        }
+
+        .set-option p {
+            color: #a9d3a9;
+            font-size: 0.9rem;
+        }
+
+        /* アレルギー・注意事項 */
+        .notice-section {
+            background: linear-gradient(135deg, #3d2914 0%, #5d3a1a 100%);
+            border: 2px solid #f39c12;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .notice-section h4 {
+            color: #f39c12;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notice-section p {
+            color: #d4ac6a;
+            line-height: 1.7;
+        }
+
+        /* フッター */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid #cc0000;
+        }
+
+        /* スクロール効果 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 3rem 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .signature-menu {
+                padding: 2rem;
+            }
+
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">お好み焼き 塚本</div>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html">お店について</a></li>
+                <li><a href="menu.html" class="active">メニュー</a></li>
+                <li><a href="index.html#blog">ブログ</a></li>
+                <li><a href="index.html#reviews">お客様の声</a></li>
+                <li><a href="index.html#reservation">予約</a></li>
+            </ul>
+            <a href="index.html#reservation" class="reservation-btn">📞 予約する</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <h1 class="page-title">メニュー</h1>
+            <p class="page-subtitle">心を込めて作る本格お好み焼き</p>
+        </section>
+
+        <!-- メインコンテンツ -->
+        <div class="content">
+            <!-- 名物メニューハイライト -->
+            <div class="signature-menu scroll-reveal">
+                <div class="signature-content">
+                    <h2 class="signature-title">🏮 当店の名物「ポッカ」</h2>
+                    <p class="signature-description">
+                        お好み焼きとの相性抜群！多くのお客様に愛され続けている当店の隠れた名物です。<br>
+                        一度飲めばクセになる、ここでしか味わえない特別な一杯をぜひお試しください。<br>
+                        創業以来のレシピを守り続ける、塚本の伝統の味です。
+                    </p>
+                </div>
+            </div>
+
+            <!-- お好み焼きメニュー -->
+            <section class="menu-category">
+                <h2 class="category-title scroll-reveal">
+                    <span class="category-icon">🥞</span>
+                    お好み焼き
+                </h2>
+                <p class="category-description scroll-reveal">
+                    ふわふわの生地と新鮮な具材、秘伝のソースが織りなす絶品お好み焼き。<br>
+                    一枚一枚心を込めて、職人の技で焼き上げます。お客様のお好みに合わせてカスタマイズも可能です。
+                </p>
+                
+                <div class="menu-grid">
+                    <div class="menu-item special-item scroll-reveal">
+                        <div class="menu-image">
+                            🥞
+                            <div class="popular-badge">人気No.1</div>
+                        </div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">豚玉</h3>
+                            <div class="menu-price">¥800</div>
+                            <p class="menu-description">
+                                当店の定番メニュー。厳選された国産豚バラ肉とシャキシャキのキャベツが絶妙にマッチした王道の美味しさ。創業以来愛され続けている自慢の一品です。
+                            </p>
+                            <p class="menu-ingredients">国産豚バラ肉、新鮮キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item scroll-reveal">
+                        <div class="menu-image">🦑</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">イカ玉</h3>
+                            <div class="menu-price">¥850</div>
+                            <p class="menu-description">
+                                毎朝市場から仕入れる新鮮なイカの歯ごたえと旨みが楽しめる海鮮お好み焼き。イカの甘みと生地の優しい味わいが絶妙な調和を奏でます。
+                            </p>
+                            <p class="menu-ingredients">新鮮イカ、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item scroll-reveal">
+                        <div class="menu-image">🍤</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">エビ玉</h3>
+                            <div class="menu-price">¥950</div>
+                            <p class="menu-description">
+                                プリプリのエビがたっぷり入った贅沢な一品。エビの自然な甘みとお好み焼きの旨みが口の中で豊かに広がる、上品な味わいです。
+                            </p>
+                            <p class="menu-ingredients">大ぶりエビ、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item special-item scroll-reveal">
+                        <div class="menu-image">🌟</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">ミックス</h3>
+                            <div class="menu-price">¥1,000</div>
+                            <p class="menu-description">
+                                豚肉とイカが入った欲張りメニュー。陸と海の旨みを一度に楽しめる贅沢な組み合わせ。両方の美味しさが調和した当店人気の逸品です。
+                            </p>
+                            <p class="menu-ingredients">国産豚バラ肉、新鮮イカ、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item seasonal-item scroll-reveal">
+                        <div class="menu-image">🦪</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">牡蠣玉（冬季限定）</h3>
+                            <div class="menu-price">¥1,200</div>
+                            <p class="menu-description">
+                                冬の味覚の王様、新鮮な牡蠣をたっぷりと使用した季節限定メニュー。牡蠣の濃厚な旨みとクリーミーな食感をお楽しみください。
+                            </p>
+                            <p class="menu-ingredients">新鮮牡蠣、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item scroll-reveal">
+                        <div class="menu-image">🧀</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">チーズ玉</h3>
+                            <div class="menu-price">¥900</div>
+                            <p class="menu-description">
+                                とろ〜りチーズがたまらない洋風テイスト。上質なチーズを使用し、お子様から大人まで大人気のメニューです。
+                            </p>
+                            <p class="menu-ingredients">上質チーズ、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item scroll-reveal">
+                        <div class="menu-image">🌶️</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">キムチ玉</h3>
+                            <div class="menu-price">¥850</div>
+                            <p class="menu-description">
+                                本場韓国のキムチを使用したピリ辛お好み焼き。発酵の旨みと程よい辛さが食欲をそそる、辛いもの好きにはたまらない一品です。
+                            </p>
+                            <p class="menu-ingredients">本格キムチ、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item special-item scroll-reveal">
+                        <div class="menu-image">👑</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">塚本スペシャル</h3>
+                            <div class="menu-price">¥1,400</div>
+                            <p class="menu-description">
+                                店主渾身の最高傑作。豚肉、イカ、エビ、チーズが入った豪華絢爛な一品。すべての技術と愛情を込めた究極のお好み焼きです。
+                            </p>
+                            <p class="menu-ingredients">国産豚バラ肉、新鮮イカ、大ぶりエビ、上質チーズ、キャベツ、卵、青のり、鰹節、特製ソース</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- セットメニュー -->
+            <section class="set-menu scroll-reveal">
+                <h3 class="set-title">💝 お得なセットメニュー</h3>
+                <p class="set-description">お好み焼きとドリンクがセットになったお得なプランをご用意しています</p>
+                
+                <div class="set-options">
+                    <div class="set-option">
+                        <h5>ランチセット</h5>
+                        <p>お好み焼き + ドリンク + ミニサラダ<br><strong>¥1,000〜</strong></p>
+                    </div>
+                    <div class="set-option">
+                        <h5>ファミリーセット</h5>
+                        <p>お好み焼き2枚 + 焼きそば + ドリンク2杯<br><strong>¥2,200〜</strong></p>
+                    </div>
+                    <div class="set-option">
+                        <h5>塚本セット</h5>
+                        <p>お好み焼き + 焼きそば + 名物ポッカ<br><strong>¥1,500〜</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 焼きそば・その他メニュー -->
+            <section class="menu-category">
+                <h2 class="category-title scroll-reveal">
+                    <span class="category-icon">🍜</span>
+                    焼きそば・その他
+                </h2>
+                <p class="category-description scroll-reveal">
+                    鉄板で香ばしく炒めた自慢の焼きそば。もちもちの麺と新鮮な野菜の食感をお楽しみください。
+                </p>
+
+                <div class="price-section scroll-reveal">
+                    <div class="price-grid">
+                        <div class="price-category">
+                            <h4>🍝 焼きそば</h4>
+                            <ul class="price-list">
+                                <li class="price-item">
+                                    <span class="item-name">焼きそば（塩）</span>
+                                    <span class="item-price">¥650</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">焼きそば（ソース）</span>
+                                    <span class="item-price">¥650</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">豚焼きそば</span>
+                                    <span class="item-price">¥750</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">イカ焼きそば</span>
+                                    <span class="item-price">¥800</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">ミックス焼きそば</span>
+                                    <span class="item-price">¥900</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">特製焼きそば</span>
+                                    <span class="item-price">¥950</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="price-category">
+                            <h4>🍽️ サイドメニュー</h4>
+                            <ul class="price-list">
+                                <li class="price-item">
+                                    <span class="item-name">もんじゃ焼き</span>
+                                    <span class="item-price">¥600</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">たこ焼き（6個）</span>
+                                    <span class="item-price">¥450</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">焼きうどん</span>
+                                    <span class="item-price">¥650</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">イカ焼き</span>
+                                    <span class="item-price">¥400</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">野菜炒め</span>
+                                    <span class="item-price">¥500</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">キムチ</span>
+                                    <span class="item-price">¥300</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ドリンクメニュー -->
+            <section class="menu-category">
+                <h2 class="category-title scroll-reveal">
+                    <span class="category-icon">🍺</span>
+                    ドリンク
+                </h2>
+                <p class="category-description scroll-reveal">
+                    お好み焼きに合うドリンクを各種ご用意。当店名物の「ポッカ」もお忘れなく！
+                </p>
+
+                <div class="menu-grid">
+                    <div class="menu-item special-item scroll-reveal">
+                        <div class="menu-image">☕</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">ポッカ（名物）</h3>
+                            <div class="menu-price">¥300</div>
+                            <p class="menu-description">
+                                当店の隠れた名物ドリンク！創業以来のレシピを守り続ける伝統の味。お好み焼きとの相性抜群で、多くのお客様に愛され続けています。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="menu-item scroll-reveal">
+                        <div class="menu-image">🍺</div>
+                        <div class="menu-info">
+                            <h3 class="menu-name">生ビール（プレミアム）</h3>
+                            <div class="menu-price">¥500</div>
+                            <p class="menu-description">
+                                キンキンに冷えたプレミアム生ビール。熱々のお好み焼きとの相性バツグン！クリーミーな泡と爽やかな喉越しをお楽しみください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-section scroll-reveal">
+                    <div class="price-grid">
+                        <div class="price-category">
+                            <h4>🍻 アルコール</h4>
+                            <ul class="price-list">
+                                <li class="price-item">
+                                    <span class="item-name">生ビール（レギュラー）</span>
+                                    <span class="item-price">¥450</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">瓶ビール（中瓶）</span>
+                                    <span class="item-price">¥400</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">日本酒（一合）</span>
+                                    <span class="item-price">¥450</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">焼酎（水割り・お湯割り）</span>
+                                    <span class="item-price">¥400</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">ハイボール</span>
+                                    <span class="item-price">¥400</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">チューハイ各種</span>
+                                    <span class="item-price">¥350</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">梅酒（ロック・水割り）</span>
+                                    <span class="item-price">¥450</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="price-category">
+                            <h4>🥤 ソフトドリンク</h4>
+                            <ul class="price-list">
+                                <li class="price-item">
+                                    <span class="item-name">コーラ</span>
+                                    <span class="item-price">¥250</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">オレンジジュース</span>
+                                    <span class="item-price">¥250</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">ウーロン茶</span>
+                                    <span class="item-price">¥200</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">緑茶</span>
+                                    <span class="item-price">¥200</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">アイスコーヒー</span>
+                                    <span class="item-price">¥250</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">カルピス</span>
+                                    <span class="item-price">¥250</span>
+                                </li>
+                                <li class="price-item">
+                                    <span class="item-name">ジンジャーエール</span>
+                                    <span class="item-price">¥250</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- アレルギー・注意事項 -->
+            <div class="notice-section scroll-reveal">
+                <h4>⚠️ アレルギー情報・ご注意事項</h4>
+                <p>
+                    当店では小麦、卵、大豆、乳製品、魚介類などのアレルギー物質を含む食材を使用しております。
+                    食物アレルギーをお持ちのお客様は、ご注文前にスタッフまでお気軽にお声かけください。
+                    可能な限り対応させていただきます。また、季節限定メニューの提供期間や価格は予告なく変更する場合がございます。
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <p>&copy; 2025 お好み焼き 塚本. All rights reserved.</p>
+        <p>美味しいお好み焼きで皆様をお待ちしております</p>
+    </footer>
+
+    <script>
+        // スクロール効果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        console.log('お好み焼き塚本 - メニュー（スタンダードプラン）ページが読み込まれました');
+    </script>
+</body>
+</html>

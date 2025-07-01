@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お好み焼き 塚本 - 謙虚な気持ちで美味しさをお届け</title>
+    <meta name="description" content="塚本駅近くのお好み焼き店。謙虚な気持ちで心を込めて作る本格お好み焼き。電話予約、ブログ機能、SNS連携で充実のサービス。">
+    <meta name="keywords" content="お好み焼き,塚本,大阪,西淀川区,塚本駅,ポッカ,予約,ブログ">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'MS PGothic', sans-serif;
+            line-height: 1.7;
+            color: #fff;
+            overflow-x: hidden;
+            background: #1a1a1a;
+            font-size: 16px;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(204, 0, 0, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* 予約ボタン */
+        .reservation-btn {
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(204,0,0,0.3);
+            display: inline-block;
+        }
+
+        .reservation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204,0,0,0.4);
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(26,26,26,0.7)), 
+                            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a1a1a" width="100%" height="100%"/><circle fill="%23cc0000" cx="600" cy="400" r="300" opacity="0.6"/><circle fill="%23ff3333" cx="400" cy="600" r="200" opacity="0.4"/></svg>');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            background: linear-gradient(45deg, #fff, #ffcccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: white;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(204,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(204,0,0,0.4);
+            background: linear-gradient(45deg, #ff4444, #dd0000);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid #ff6666;
+            color: #ff6666;
+        }
+
+        .cta-secondary:hover {
+            background: #ff6666;
+            color: white;
+        }
+
+        /* セクション共通スタイル */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #1a1a1a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: #ff6666;
+            position: relative;
+            font-weight: 700;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            border-radius: 2px;
+        }
+
+        /* 予約システム */
+        .reservation-system {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #333333 100%);
+            color: white;
+        }
+
+        .reservation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .phone-reservation {
+            background: linear-gradient(135deg, #333333 0%, #2a2a2a 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid #ff6666;
+            text-align: center;
+        }
+
+        .phone-number {
+            font-size: 2rem;
+            color: #ff6666;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .reservation-form {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid #444;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ff6666;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #444;
+            border-radius: 10px;
+            background: #1a1a1a;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6666;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(204,0,0,0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204,0,0,0.4);
+        }
+
+        /* ストーリーセクション */
+        .story {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #333333 100%);
+            color: white;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            font-weight: 400;
+        }
+
+        .story-highlight {
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(26,26,26,0.4));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-image-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .story-image:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* ブログセクション */
+        .blog-section {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .blog-post {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #444;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: #ff6666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .blog-excerpt {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #ff6666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #ff3333;
+        }
+
+        /* お客様の声 */
+        .reviews-section {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #333333 100%);
+            color: white;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #ff6666;
+            position: relative;
+        }
+
+        .review-stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .review-author {
+            color: #ff6666;
+            font-weight: 600;
+        }
+
+        /* SNS連携 */
+        .sns-section {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+        }
+
+        .sns-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sns-link {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .sns-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(204,0,0,0.4);
+        }
+
+        /* メニューセクション */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(204,0,0,0.4);
+            border-color: #ff6666;
+        }
+
+        .menu-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #cc0000, #ff3333);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ff6666;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-description {
+            color: #ccc;
+            position: relative;
+            z-index: 2;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 特別なメニューアイテム */
+        .special-item {
+            background: linear-gradient(135deg, #333333 0%, #2a2a2a 100%);
+            border: 3px solid #ff6666;
+            transform: scale(1.05);
+        }
+
+        .special-item .menu-icon {
+            animation: pulse 2s infinite;
+        }
+
+        /* フッター */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid #cc0000;
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* スクロール効果 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .story-content,
+            .reservation-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sns-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+    <!-- Google Analytics設定（実装時に有効化） -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_TRACKING_ID');
+    </script>
+    -->
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">お好み焼き 塚本</div>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="about.html">お店について</a></li>
+                <li><a href="menu.html">メニュー</a></li>
+                <li><a href="#blog">ブログ</a></li>
+                <li><a href="#reviews">お客様の声</a></li>
+                <li><a href="#reservation">予約</a></li>
+            </ul>
+            <a href="#reservation" class="reservation-btn">📞 予約する</a>
+        </nav>
+    </header>
+
+    <!-- ヒーロー -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>お好み焼き 塚本</h1>
+            <p class="hero-subtitle">謙虚な気持ちで、心を込めて作る本格お好み焼き</p>
+            <div class="cta-buttons">
+                <a href="menu.html" class="cta-button">メニューを見る</a>
+                <a href="#reservation" class="cta-button cta-secondary">予約する</a>
+                <a href="about.html" class="cta-button cta-secondary">お店について</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 予約システム -->
+    <section id="reservation" class="section reservation-system">
+        <h2 class="section-title scroll-reveal">ご予約</h2>
+        <div class="reservation-container">
+            <div class="phone-reservation scroll-reveal">
+                <h3>📞 お電話でのご予約</h3>
+                <div class="phone-number">06-6478-5789</div>
+                <p>営業時間内にお電話ください</p>
+                <p><strong>平日:</strong> 17:00〜22:00</p>
+                <p><strong>土日祝:</strong> 16:00〜22:00</p>
+                <p><strong>定休日:</strong> 毎週火曜日</p>
+            </div>
+            
+            <div class="reservation-form scroll-reveal">
+                <h3>💻 オンライン予約フォーム</h3>
+                <form id="reservationForm">
+                    <div class="form-group">
+                        <label for="name">お名前 *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">電話番号 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">希望日 *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">希望時間 *</label>
+                        <select id="time" name="time" required>
+                            <option value="">時間を選択してください</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">人数 *</label>
+                        <select id="guests" name="guests" required>
+                            <option value="">人数を選択してください</option>
+                            <option value="1">1名</option>
+                            <option value="2">2名</option>
+                            <option value="3">3名</option>
+                            <option value="4">4名</option>
+                            <option value="5">5名</option>
+                            <option value="6">6名以上</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="requests">ご要望・メッセージ</label>
+                        <textarea id="requests" name="requests" rows="3" placeholder="アレルギーや特別なご要望がございましたらお聞かせください"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">予約を送信</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ストーリー -->
+    <section id="story" class="section story">
+        <h2 class="section-title scroll-reveal">お店について</h2>
+        <div class="story-content scroll-reveal">
+            <div class="story-text">
+                <p>前のお店のマスターから「店長として、もう一店舗やるか独立するかどうする？」と聞かれた時、迷わず<span class="story-highlight">「独立する」</span>と答えました。</p>
+                <br>
+                <p>あの頃は「やったんで！」という気持ちで、できると思っていたし、正直調子に乗っていました。</p>
+                <br>
+                <p>だけど今は違います。<span class="story-highlight">謙虚な気持ち</span>を第一に、お店を運営しています。</p>
+                <br>
+                <p>お客様に<span class="story-highlight">「おいしい！！」</span>って思ってもらえるように、そして<span class="story-highlight">人に紹介したくなるお店</span>を目指して、接客を大事にしながら、毎日心を込めてお好み焼きを作っています。</p>
+            </div>
+            <div class="story-image">
+                <div class="story-image-text">心を込めて作る<br>本格お好み焼き</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="about.html" class="cta-button">詳しく見る</a>
+        </div>
+    </section>
+
+    <!-- ブログセクション -->
+    <section id="blog" class="section blog-section">
+        <h2 class="section-title scroll-reveal">店主のブログ</h2>
+        <p style="text-align: center; margin-bottom: 2rem; color: #ccc;">日々の想いや新メニューの情報をお届けします</p>
+        
+        <div class="blog-grid">
+            <article class="blog-post scroll-reveal">
+                <div class="blog-image">📝</div>
+                <div class="blog-content">
+                    <div class="blog-date">2025年6月20日</div>
+                    <h3 class="blog-title">新メニュー「塚本スペシャル」誕生秘話</h3>
+                    <p class="blog-excerpt">長年の研究の末、ついに完成した自信作です。お客様に喜んでいただけるよう、何度も試作を重ねました...</p>
+                    <a href="#" class="read-more">続きを読む →</a>
+                </div>
+            </article>
+            
+            <article class="blog-post scroll-reveal">
+                <div class="blog-image">🥞</div>
+                <div class="blog-content">
+                    <div class="blog-date">2025年6月15日</div>
+                    <h3 class="blog-title">お好み焼きの美味しい焼き方のコツ</h3>
+                    <p class="blog-excerpt">ご家庭でも美味しいお好み焼きを作れるよう、プロの技をお教えします。生地の混ぜ方から焼き方まで...</p>
+                    <a href="#" class="read-more">続きを読む →</a>
+                </div>
+            </article>
+            
+            <article class="blog-post scroll-reveal">
+                <div class="blog-image">❤️</div>
+                <div class="blog-content">
+                    <div class="blog-date">2025年6月10日</div>
+                    <h3 class="blog-title">謙虚な気持ちで接客することの大切さ</h3>
+                    <p class="blog-excerpt">開店当初から大切にしている「謙虚な気持ち」について。お客様に寄り添う接客とは何かを考えます...</p>
+                    <a href="#" class="read-more">続きを読む →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- メニュー -->
+    <section id="menu" class="section menu-section">
+        <h2 class="section-title scroll-reveal">おすすめメニュー</h2>
+        
+        <div class="menu-grid">
+            <div class="menu-item special-item scroll-reveal">
+                <div class="menu-icon">🥞</div>
+                <h3 class="menu-name">お好み焼き</h3>
+                <p class="menu-description">当店自慢の一品。厳選した食材と秘伝のソースで作る絶品お好み焼き。ふわふわの生地と新鮮な具材の絶妙なハーモニーをお楽しみください。</p>
+            </div>
+            <div class="menu-item special-item scroll-reveal">
+                <div class="menu-icon">☕</div>
+                <h3 class="menu-name">ポッカ</h3>
+                <p class="menu-description">当店の隠れた名物「ポッカ」。お好み焼きとの相性抜群で、多くのお客様に愛され続けている特別な一品です。</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="menu.html" class="cta-button">全メニュー・価格を見る</a>
+        </div>
+    </section>
+
+    <!-- お客様の声 -->
+    <section id="reviews" class="section reviews-section">
+        <h2 class="section-title scroll-reveal">お客様の声</h2>
+        
+        <div class="reviews-grid">
+            <div class="review-card scroll-reveal">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">「謙虚な気持ち」という店主の姿勢が料理にも表れていて、本当に美味しいお好み焼きでした。また絶対に来ます！</p>
+                <div class="review-author">Y.Sさん（30代女性）</div>
+            </div>
+            
+            <div class="review-card scroll-reveal">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">塚本駅からすぐで便利！ポッカも最高でした。アットホームな雰囲気で居心地が良く、友人にも紹介したいお店です。</p>
+                <div class="review-author">M.Tさん（40代男性）</div>
+            </div>
+            
+            <div class="review-card scroll-reveal">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">予約システムが便利で助かります。お好み焼きの味も関西の本格的な味で、大阪に来た実感が湧きました。</p>
+                <div class="review-author">A.Kさん（20代女性）</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SNS連携 -->
+    <section id="sns" class="section sns-section">
+        <h2 class="section-title scroll-reveal">SNSでつながろう</h2>
+        <p style="margin-bottom: 2rem; color: #ccc;">最新情報やお得な情報をお届けします</p>
+        
+        <div class="sns-links">
+            <a href="#" class="sns-link" title="Instagram">📷</a>
+            <a href="#" class="sns-link" title="Twitter">🐦</a>
+            <a href="#" class="sns-link" title="Facebook">📘</a>
+            <a href="#" class="sns-link" title="LINE">💬</a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <p>&copy; 2025 お好み焼き 塚本. All rights reserved.</p>
+        <p>謙虚な気持ちで、皆様のお越しをお待ちしております</p>
+    </footer>
+
+    <script>
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // スクロール効果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 予約フォーム送信
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const reservationData = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                date: formData.get('date'),
+                time: formData.get('time'),
+                guests: formData.get('guests'),
+                requests: formData.get('requests')
+            };
+            
+            // 実際の実装では、ここでサーバーにデータを送信
+            alert(`ご予約ありがとうございます！\n\nお名前: ${reservationData.name}\n日時: ${reservationData.date} ${reservationData.time}\n人数: ${reservationData.guests}名\n\n確認のお電話をさせていただきます。`);
+            this.reset();
+        });
+
+        // 日付の最小値を今日に設定
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+        console.log('お好み焼き塚本 - スタンダードプランサイトが読み込まれました');
+        
+        // Google Analytics トラッキング（実装時に有効化）
+        // gtag('event', 'page_view', {
+        //     page_title: 'お好み焼き塚本 - スタンダードプラン',
+        //     page_location: window.location.href
+        // });
+    </script>
+</body>
+</html>

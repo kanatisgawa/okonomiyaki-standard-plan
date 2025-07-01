@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お店について - お好み焼き 塚本</title>
+    <meta name="description" content="お好み焼き塚本の歴史、こだわり、店主の想いを詳しくご紹介。謙虚な気持ちで運営する塚本駅近くのお好み焼き店です。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'MS PGothic', sans-serif;
+            line-height: 1.7;
+            color: #fff;
+            overflow-x: hidden;
+            background: #1a1a1a;
+            font-size: 16px;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(204, 0, 0, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background: rgba(204, 0, 0, 0.8);
+        }
+
+        /* 予約ボタン */
+        .reservation-btn {
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(204,0,0,0.3);
+            display: inline-block;
+        }
+
+        .reservation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204,0,0,0.4);
+        }
+
+        /* メインコンテンツ */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 140px);
+        }
+
+        .page-header {
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(26,26,26,0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a1a1a" width="100%" height="100%"/><circle fill="%23cc0000" cx="600" cy="400" r="300" opacity="0.6"/><circle fill="%23ff3333" cx="400" cy="600" r="200" opacity="0.4"/></svg>');
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            background: linear-gradient(45deg, #fff, #ffcccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #ff6666;
+            margin-bottom: 3rem;
+            position: relative;
+            font-weight: 700;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            border-radius: 2px;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        /* ストーリーセクション */
+        .story-section {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            padding: 4rem;
+            border-radius: 20px;
+            margin-bottom: 4rem;
+            border: 1px solid #444;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .story-text p {
+            margin-bottom: 2rem;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(26,26,26,0.4));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-image-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .story-image:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        /* こだわりセクション */
+        .commitment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .commitment-item {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .commitment-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6666, #ff3333);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .commitment-item:hover::before {
+            opacity: 1;
+        }
+
+        .commitment-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(204,0,0,0.3);
+        }
+
+        .commitment-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            color: #ff6666;
+        }
+
+        .commitment-title {
+            font-size: 1.4rem;
+            color: #ff6666;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .commitment-text {
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        /* 店内写真ギャラリー */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            background: #333;
+            height: 250px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #444;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* 営業理念 */
+        .philosophy {
+            background: linear-gradient(135deg, #cc0000 0%, #ff3333 100%);
+            color: white;
+            padding: 4rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .philosophy-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .philosophy h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .philosophy p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* タイムライン */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #ff6666, #ff3333);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 45%;
+            border: 1px solid #444;
+            position: relative;
+        }
+
+        .timeline-date {
+            color: #ff6666;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-text {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: #ff6666;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 4px solid #1a1a1a;
+            top: 2rem;
+        }
+
+        /* フッター */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid #cc0000;
+        }
+
+        /* スクロール効果 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 3rem 1rem;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .commitment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                padding-left: 3rem;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">お好み焼き 塚本</div>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html" class="active">お店について</a></li>
+                <li><a href="menu.html">メニュー</a></li>
+                <li><a href="index.html#blog">ブログ</a></li>
+                <li><a href="index.html#reviews">お客様の声</a></li>
+                <li><a href="index.html#reservation">予約</a></li>
+            </ul>
+            <a href="index.html#reservation" class="reservation-btn">📞 予約する</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <h1 class="page-title">お店について</h1>
+            <p class="page-subtitle">謙虚な気持ちで皆様をお迎えします</p>
+        </section>
+
+        <!-- メインコンテンツ -->
+        <div class="content">
+            <!-- 店主のストーリー -->
+            <section class="section">
+                <h2 class="section-title scroll-reveal">店主のストーリー</h2>
+                <div class="story-section scroll-reveal">
+                    <div class="story-grid">
+                        <div class="story-text">
+                            <p>前のお店のマスターから「店長として、もう一店舗やるか独立するかどうする？」と聞かれた時、迷わず<span class="highlight">「独立する」</span>と答えました。</p>
+                            
+                            <p>あの頃は「やったんで！」という気持ちで、できると思っていたし、正直調子に乗っていました。</p>
+                            
+                            <p>だけど今は違います。<span class="highlight">謙虚な気持ち</span>を第一に、お店を運営しています。</p>
+                            
+                            <p>お客様に<span class="highlight">「おいしい！！」</span>って思ってもらえるように、そして<span class="highlight">人に紹介したくなるお店</span>を目指して、接客を大事にしながら、毎日心を込めてお好み焼きを作っています。</p>
+                        </div>
+                        <div class="story-image">
+                            <div class="story-image-text">心を込めて作る<br>本格お好み焼き</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 店舗の歩み -->
+            <section class="section">
+                <h2 class="section-title scroll-reveal">店舗の歩み</h2>
+                <div class="timeline scroll-reveal">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2020年春</div>
+                            <h3 class="timeline-title">独立への決意</h3>
+                            <p class="timeline-text">前の店舗での修行を経て、独立への強い想いを抱く。お客様に愛されるお店を作りたいという夢を胸に準備を開始。</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2020年夏</div>
+                            <h3 class="timeline-title">塚本での開店</h3>
+                            <p class="timeline-text">「やったんで！」という気持ちで塚本にお店をオープン。地域の皆様に支えられながら、お好み焼き作りに奮闘する日々が始まる。</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021年</div>
+                            <h3 class="timeline-title">挫折と学び</h3>
+                            <p class="timeline-text">様々な困難に直面し、調子に乗っていた自分を反省。お客様の声に真摯に耳を傾け、謙虚さの大切さを学ぶ。</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2022年</div>
+                            <h3 class="timeline-title">謙虚な気持ちへの転換</h3>
+                            <p class="timeline-text">「謙虚な気持ち」を座右の銘とし、お客様一人ひとりを大切にする接客スタイルを確立。お店の雰囲気が大きく変わる。</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023年〜現在</div>
+                            <h3 class="timeline-title">地域に愛される店へ</h3>
+                            <p class="timeline-text">口コミで評判が広がり、多くのお客様にご愛顧いただける店に成長。「人に紹介したくなる店」という目標に向かって日々精進中。</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- お店のこだわり -->
+            <section class="section">
+                <h2 class="section-title scroll-reveal">当店のこだわり</h2>
+                <div class="commitment-grid">
+                    <div class="commitment-item scroll-reveal">
+                        <span class="commitment-icon">🥬</span>
+                        <h3 class="commitment-title">厳選食材へのこだわり</h3>
+                        <p class="commitment-text">毎朝仕入れる新鮮な地元野菜と、厳選された国産食材のみを使用。キャベツは産地にもこだわり、甘みとシャキシャキ感を重視して選んでいます。豚肉も脂身と赤身のバランスが良い部位を厳選しています。</p>
+                    </div>
+                    
+                    <div class="commitment-item scroll-reveal">
+                        <span class="commitment-icon">🔥</span>
+                        <h3 class="commitment-title">職人の技術</h3>
+                        <p class="commitment-text">長年の経験で培った技術を駆使し、適温に熱した鉄板で一枚一枚丁寧に焼き上げます。生地の混ぜ方から焼き加減まで、細部にまでこだわった職人の技をご堪能ください。</p>
+                    </div>
+                    
+                    <div class="commitment-item scroll-reveal">
+                        <span class="commitment-icon">🍯</span>
+                        <h3 class="commitment-title">秘伝のソース</h3>
+                        <p class="commitment-text">創業以来研究を重ねてきた特製ソースは、甘みと旨みの絶妙なバランスが自慢。複数の調味料を独自の配合でブレンドし、お好み焼きの美味しさを最大限に引き出します。</p>
+                    </div>
+                    
+                    <div class="commitment-item scroll-reveal">
+                        <span class="commitment-icon">💝</span>
+                        <h3 class="commitment-title">心のこもった接客</h3>
+                        <p class="commitment-text">「謙虚な気持ち」を胸に、お客様一人ひとりとの出会いを大切にしています。お客様のお好みや体調に合わせた細やかな心配りと、温かみのある接客でお迎えします。</p>
+                    </div>
+                    
+                    <div class="commitment-item scroll-reveal">
+                        <span class="commitment-icon">🏠</span>
+                        <h3 class="commitment-title">居心地の良い空間</h3>
+                        <p class="commitment-text">家族連れからお一人様、ご高齢の方まで、どなたでもくつろげる温かい雰囲気づくりを心がけています。清潔で落ち着いた店内で、ゆっくりとお食事をお楽しみください。</p>
+                    </div>
+                    
+                    <div class="commitment-item scroll-reveal">
+                        <span class="commitment-icon">⚡</span>
+                        <h3 class="commitment-title">スピーディーな提供</h3>
+                        <p class="commitment-text">お忙しい時間にもお気軽にお立ち寄りいただけるよう、美味しさと品質を保ちながら効率的な調理を心がけています。お待たせしない工夫を常に考えています。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 営業理念 -->
+            <section class="philosophy scroll-reveal">
+                <div class="philosophy-content">
+                    <h3>座右の銘</h3>
+                    <p>「謙虚な気持ち」</p>
+                    <p style="font-size: 1.1rem; margin-top: 1.5rem; opacity: 0.9;">
+                        お客様一人ひとりを大切に、心を込めておもてなしいたします<br>
+                        美味しいお好み焼きを通して、皆様に笑顔をお届けしたい
+                    </p>
+                </div>
+            </section>
+
+            <!-- 店内の様子 -->
+            <section class="section">
+                <h2 class="section-title scroll-reveal">店内の様子</h2>
+                <div class="gallery">
+                    <div class="gallery-item scroll-reveal">
+                        <span>カウンター席（8席）</span>
+                        <div class="gallery-caption">お一人様でもお気軽に。調理の様子もご覧いただけます</div>
+                    </div>
+                    <div class="gallery-item scroll-reveal">
+                        <span>テーブル席（4卓）</span>
+                        <div class="gallery-caption">ご家族・ご友人とゆっくりとお食事をお楽しみください</div>
+                    </div>
+                    <div class="gallery-item scroll-reveal">
+                        <span>鉄板調理エリア</span>
+                        <div class="gallery-caption">目の前で焼き上げる臨場感をお楽しみください</div>
+                    </div>
+                    <div class="gallery-item scroll-reveal">
+                        <span>店内全景</span>
+                        <div class="gallery-caption">温かみのある照明で落ち着いた雰囲気</div>
+                    </div>
+                    <div class="gallery-item scroll-reveal">
+                        <span>厨房エリア</span>
+                        <div class="gallery-caption">清潔で整理整頓された調理環境</div>
+                    </div>
+                    <div class="gallery-item scroll-reveal">
+                        <span>待合スペース</span>
+                        <div class="gallery-caption">お待ちいただく間もリラックスできる空間</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 2rem; color: #ccc; font-size: 0.9rem;">
+                    ※写真は実装時に実際の店内写真に差し替えます
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <p>&copy; 2025 お好み焼き 塚本. All rights reserved.</p>
+        <p>謙虚な気持ちで、皆様のお越しをお待ちしております</p>
+    </footer>
+
+    <script>
+        // スクロール効果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        console.log('お好み焼き塚本 - お店について（スタンダードプラン）ページが読み込まれました');
+    </script>
+</body>
+</html>
