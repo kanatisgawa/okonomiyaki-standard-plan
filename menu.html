@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>メニュー - お好み焼き 塚本</title>
     <meta name="description" content="お好み焼き塚本の全メニューを詳しくご紹介。豊富なお好み焼きメニュー、名物ポッカ、季節限定メニューなど充実のラインナップ。">
     <style>
@@ -19,19 +19,22 @@
             overflow-x: hidden;
             background: #1a1a1a;
             font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ヘッダー */
+        /* ヘッダー - プレミアムスマホ最適化 */
         .header {
             background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%);
             color: white;
-            padding: 1rem 0;
+            padding: 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .nav {
@@ -40,21 +43,31 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
+            position: relative;
+            min-height: 60px;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
             letter-spacing: 1px;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -68,12 +81,15 @@
         }
 
         .nav-links a:hover {
-            background: rgba(204, 0, 0, 0.8);
+            background: rgba(255, 51, 51, 0.2);
+            color: #ff6666;
             transform: translateY(-2px);
         }
 
         .nav-links a.active {
-            background: rgba(204, 0, 0, 0.8);
+            background: #ff3333;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 51, 51, 0.3);
         }
 
         /* 予約ボタン */
@@ -94,10 +110,136 @@
             box-shadow: 0 8px 25px rgba(204,0,0,0.4);
         }
 
+        /* ハンバーガーメニュー - プレミアム仕様 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hamburger:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 2px;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: #ff3333;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: #ff3333;
+        }
+
+        /* モバイルメニュー - 最高級仕様 */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease 0.2s;
+        }
+
+        .mobile-menu.active .mobile-menu-links {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu-links li {
+            margin: 1.8rem 0;
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active .mobile-menu-links li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .mobile-menu-links li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu-links li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu-links li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu-links li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu-links li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu-links li:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu-links li:nth-child(7) { transition-delay: 0.7s; }
+
+        .mobile-menu-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem 2.5rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 260px;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            background: rgba(255, 51, 51, 0.3);
+            border-color: #ff3333;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
+        }
+
+        .mobile-menu-links .emoji {
+            font-size: 1.1rem;
+        }
+
         /* メインコンテンツ */
         main {
-            margin-top: 80px;
-            min-height: calc(100vh - 140px);
+            margin-top: 60px;
+            min-height: calc(100vh - 120px);
         }
 
         .page-header {
@@ -105,12 +247,29 @@
                         url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a1a1a" width="100%" height="100%"/><circle fill="%23cc0000" cx="600" cy="400" r="300" opacity="0.6"/><circle fill="%23ff3333" cx="400" cy="600" r="200" opacity="0.4"/></svg>');
             color: white;
             text-align: center;
-            padding: 6rem 2rem 4rem;
+            padding: 4rem 1rem 3rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .page-title {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 1rem;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
             background: linear-gradient(45deg, #fff, #ffcccc);
@@ -118,12 +277,16 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
         }
 
         .page-subtitle {
             font-size: 1.4rem;
             opacity: 0.95;
             animation: fadeInUp 1s ease-out 0.3s both;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -140,7 +303,7 @@
         .content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 4rem 1rem;
         }
 
         .menu-category {
@@ -148,7 +311,7 @@
         }
 
         .category-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #ff6666;
             margin-bottom: 1rem;
             position: relative;
@@ -172,26 +335,28 @@
         }
 
         .category-icon {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
         }
 
         .category-description {
             color: #ccc;
             margin-bottom: 3rem;
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1.2rem;
+            line-height: 1.8;
         }
 
         /* 名物メニューのハイライト */
         .signature-menu {
             background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
-            border: 2px solid #ff6666;
-            padding: 3rem;
+            border: 3px solid #ff6666;
+            padding: 3.5rem;
             border-radius: 20px;
             margin: 4rem 0;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 50px rgba(255, 102, 102, 0.2);
         }
 
         .signature-menu::before {
@@ -216,21 +381,22 @@
         }
 
         .signature-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #ff6666;
             margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
         .signature-description {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #ccc;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         /* メニューグリッド */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
             gap: 2.5rem;
         }
 
@@ -238,26 +404,54 @@
             background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 1px solid #444;
             position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff3333, #ff6666);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .menu-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(204,0,0,0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(204,0,0,0.3);
             border-color: #ff6666;
         }
 
+        .menu-item:hover::before {
+            transform: scaleX(1);
+        }
+
         .menu-image {
-            height: 200px;
+            height: 220px;
             background: linear-gradient(135deg, #cc0000, #ff3333);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: white;
             position: relative;
+            overflow: hidden;
+        }
+
+        .menu-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 70%);
         }
 
         .popular-badge {
@@ -271,6 +465,12 @@
             font-size: 0.85rem;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(243,156,18,0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .new-badge {
@@ -278,27 +478,36 @@
         }
 
         .menu-info {
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
         .menu-name {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #ff6666;
             margin-bottom: 0.8rem;
         }
 
         .menu-price {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #ff3333;
             margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .menu-price::before {
+            content: '💰';
+            font-size: 1.2rem;
         }
 
         .menu-description {
             color: #ccc;
-            line-height: 1.7;
-            margin-bottom: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
         }
 
         .menu-ingredients {
@@ -311,14 +520,15 @@
 
         /* 特別メニュー */
         .special-item {
-            border: 2px solid #f39c12;
+            border: 3px solid #f39c12;
             position: relative;
+            background: linear-gradient(135deg, #3d3d3d 0%, #2a2a2a 100%);
         }
 
         .special-item::before {
-            content: '店主おすすめ';
+            content: '⭐ 店主おすすめ';
             position: absolute;
-            top: -12px;
+            top: -15px;
             left: 25px;
             background: linear-gradient(45deg, #f39c12, #e67e22);
             color: white;
@@ -327,16 +537,17 @@
             font-size: 0.85rem;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(243,156,18,0.4);
+            z-index: 2;
         }
 
         /* 季節限定メニュー */
         .seasonal-item {
-            border: 2px solid #9b59b6;
+            border: 3px solid #9b59b6;
             background: linear-gradient(135deg, #2c1810 0%, #3e1f1f 100%);
         }
 
         .seasonal-item::before {
-            content: '季節限定';
+            content: '🌸 季節限定';
             background: linear-gradient(45deg, #9b59b6, #8e44ad);
         }
 
@@ -344,36 +555,43 @@
         .price-section {
             background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
             border-radius: 20px;
-            padding: 3rem;
+            padding: 3.5rem;
             margin: 4rem 0;
             border: 1px solid #444;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .price-section h3 {
             color: #ff6666;
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            font-size: 2rem;
             text-align: center;
+            font-weight: 700;
         }
 
         .price-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
         }
 
         .price-category {
             background: #1a1a1a;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 15px;
             border: 1px solid #444;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
         .price-category h4 {
             color: #ff6666;
             margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .price-list {
@@ -384,7 +602,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid #333;
             transition: all 0.3s ease;
         }
@@ -415,85 +633,116 @@
         /* セットメニュー */
         .set-menu {
             background: linear-gradient(135deg, #1a2f1a 0%, #2d4a2d 100%);
-            border: 2px solid #27ae60;
+            border: 3px solid #27ae60;
             border-radius: 20px;
-            padding: 2.5rem;
+            padding: 3rem;
             margin: 3rem 0;
+            box-shadow: 0 10px 40px rgba(39, 174, 96, 0.2);
         }
 
         .set-title {
             color: #2ecc71;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
             text-align: center;
+            font-weight: 700;
         }
 
         .set-description {
             color: #a9d3a9;
             text-align: center;
             margin-bottom: 2rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            line-height: 1.7;
         }
 
         .set-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
         .set-option {
             background: rgba(46,204,113,0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
+            padding: 2rem;
+            border-radius: 15px;
             border: 1px solid #27ae60;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .set-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.3);
         }
 
         .set-option h5 {
             color: #2ecc71;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
         }
 
         .set-option p {
             color: #a9d3a9;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         /* アレルギー・注意事項 */
         .notice-section {
             background: linear-gradient(135deg, #3d2914 0%, #5d3a1a 100%);
-            border: 2px solid #f39c12;
+            border: 3px solid #f39c12;
             border-radius: 15px;
-            padding: 2rem;
+            padding: 2.5rem;
             margin: 3rem 0;
+            box-shadow: 0 10px 40px rgba(243, 156, 18, 0.2);
         }
 
         .notice-section h4 {
             color: #f39c12;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 1.3rem;
         }
 
         .notice-section p {
             color: #d4ac6a;
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 1rem;
         }
 
         /* フッター */
         .footer {
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 1rem;
             border-top: 2px solid #cc0000;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,102,102,0.3), transparent);
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
         }
 
         /* スクロール効果 */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.6s ease;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .scroll-reveal.revealed {
@@ -501,14 +750,51 @@
             transform: translateY(0);
         }
 
-        /* レスポンシブ */
+        /* レスポンシブ - スマホ最適化 */
         @media (max-width: 768px) {
+            .nav {
+                padding: 0.8rem 1rem;
+                min-height: 50px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
             .nav-links {
                 display: none;
             }
+            
+            .reservation-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                padding: 6px;
+            }
+
+            .hamburger span {
+                width: 20px;
+                height: 2.5px;
+            }
+
+            main {
+                margin-top: 50px;
+            }
+
+            .page-header {
+                padding: 3rem 1rem 2.5rem;
+            }
 
             .page-title {
-                font-size: 2rem;
+                font-size: 2.4rem;
+                line-height: 1.2;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
             }
 
             .content {
@@ -517,21 +803,166 @@
 
             .menu-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .category-title {
+                font-size: 2rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .category-icon {
+                font-size: 2.2rem;
+            }
+
+            .signature-menu {
+                padding: 2.5rem;
+                margin: 3rem 0;
+            }
+
+            .signature-title {
+                font-size: 2rem;
+            }
+
+            .signature-description {
+                font-size: 1.1rem;
+            }
+
+            .price-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .price-section {
+                padding: 2.5rem;
+            }
+
+            .price-category {
+                padding: 2rem;
+            }
+
+            .menu-image {
+                height: 180px;
+                font-size: 3rem;
+            }
+
+            .menu-info {
+                padding: 2rem;
+            }
+
+            .menu-name {
+                font-size: 1.4rem;
+            }
+
+            .menu-price {
+                font-size: 1.3rem;
+            }
+
+            .set-menu {
+                padding: 2.5rem;
+            }
+
+            .set-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .notice-section {
+                padding: 2rem;
+            }
+
+            .mobile-menu-links a {
+                font-size: 1.1rem;
+                padding: 0.9rem 2rem;
+                min-width: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 0.6rem 0.8rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 2rem 0.8rem;
             }
 
             .category-title {
                 font-size: 1.8rem;
-                flex-direction: column;
-                text-align: center;
             }
 
             .signature-menu {
                 padding: 2rem;
             }
 
-            .price-grid {
-                grid-template-columns: 1fr;
+            .signature-title {
+                font-size: 1.8rem;
             }
+
+            .signature-description {
+                font-size: 1rem;
+            }
+
+            .price-section {
+                padding: 2rem;
+            }
+
+            .price-category {
+                padding: 1.5rem;
+            }
+
+            .menu-image {
+                height: 160px;
+                font-size: 2.5rem;
+            }
+
+            .menu-info {
+                padding: 1.5rem;
+            }
+
+            .set-menu {
+                padding: 2rem;
+            }
+
+            .notice-section {
+                padding: 1.5rem;
+            }
+
+            .mobile-menu-links a {
+                font-size: 1rem;
+                padding: 0.8rem 1.8rem;
+                min-width: 220px;
+            }
+        }
+
+        /* 超高解像度対応 */
+        @media (min-width: 1400px) {
+            .content {
+                max-width: 1600px;
+            }
+
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            }
+        }
+
+        /* ダークモード対応 */
+        @media (prefers-color-scheme: dark) {
+            /* 既にダークテーマなので追加の変更は不要 */
         }
     </style>
 </head>
@@ -539,7 +970,7 @@
     <!-- ヘッダー -->
     <header class="header">
         <nav class="nav">
-            <div class="logo">お好み焼き 塚本</div>
+            <a href="index.html" class="logo">お好み焼き 塚本</a>
             <ul class="nav-links">
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="about.html">お店について</a></li>
@@ -549,7 +980,25 @@
                 <li><a href="index.html#reservation">予約</a></li>
             </ul>
             <a href="index.html#reservation" class="reservation-btn">📞 予約する</a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+        
+        <!-- モバイルメニュー -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html" class="mobile-link"><span class="emoji">🏠</span> ホーム</a></li>
+                <li><a href="about.html" class="mobile-link"><span class="emoji">📖</span> お店について</a></li>
+                <li><a href="menu.html" class="mobile-link active"><span class="emoji">📋</span> メニュー</a></li>
+                <li><a href="index.html#blog" class="mobile-link"><span class="emoji">📝</span> ブログ</a></li>
+                <li><a href="index.html#reviews" class="mobile-link"><span class="emoji">⭐</span> お客様の声</a></li>
+                <li><a href="index.html#reservation" class="mobile-link"><span class="emoji">📞</span> 予約</a></li>
+                <li><a href="index.html#sns" class="mobile-link"><span class="emoji">📱</span> SNS</a></li>
+            </ul>
+        </div>
     </header>
 
     <main>
@@ -908,6 +1357,26 @@
     </footer>
 
     <script>
+        // ハンバーガーメニュー - プレミアム
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // モバイルメニューリンククリック時にメニューを閉じる
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         // スクロール効果
         const observerOptions = {
             threshold: 0.1,
@@ -926,7 +1395,62 @@
             observer.observe(el);
         });
 
-        console.log('お好み焼き塚本 - メニュー（スタンダードプラン）ページが読み込まれました');
+        // タッチジェスチャー対応
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 100) {
+                if (swipeDistance > 0 && !mobileMenu.classList.contains('active')) {
+                    // 右スワイプでメニューを開く
+                    hamburger.classList.add('active');
+                    mobileMenu.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else if (swipeDistance < 0 && mobileMenu.classList.contains('active')) {
+                    // 左スワイプでメニューを閉じる
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // パフォーマンス最適化
+        let ticking = false;
+
+        function updateOnScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const header = document.querySelector('.header');
+                    
+                    if (scrolled > 100) {
+                        header.style.background = 'rgba(26, 26, 26, 0.95)';
+                        header.style.backdropFilter = 'blur(20px)';
+                    } else {
+                        header.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%)';
+                        header.style.backdropFilter = 'blur(10px)';
+                    }
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', updateOnScroll, { passive: true });
+
+        console.log('お好み焼き塚本 - メニュー（スタンダードプラン・プレミアムスマホ最適化版）ページが読み込まれました');
     </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>お好み焼き 塚本 - 謙虚な気持ちで美味しさをお届け</title>
     <meta name="description" content="塚本駅近くのお好み焼き店。謙虚な気持ちで心を込めて作る本格お好み焼き。電話予約、ブログ機能、SNS連携で充実のサービス。">
     <meta name="keywords" content="お好み焼き,塚本,大阪,西淀川区,塚本駅,ポッカ,予約,ブログ">
@@ -20,19 +20,22 @@
             overflow-x: hidden;
             background: #1a1a1a;
             font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ヘッダー */
+        /* ヘッダー - プレミアムスマホ最適化 */
         .header {
             background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%);
             color: white;
-            padding: 1rem 0;
+            padding: 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .nav {
@@ -41,21 +44,31 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
+            position: relative;
+            min-height: 60px;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', sans-serif;
             letter-spacing: 1px;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -69,8 +82,15 @@
         }
 
         .nav-links a:hover {
-            background: rgba(204, 0, 0, 0.8);
+            background: rgba(255, 51, 51, 0.2);
+            color: #ff6666;
             transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background: #ff3333;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 51, 51, 0.3);
         }
 
         /* 予約ボタン */
@@ -91,6 +111,132 @@
             box-shadow: 0 8px 25px rgba(204,0,0,0.4);
         }
 
+        /* ハンバーガーメニュー - プレミアム仕様 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hamburger:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 2px;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: #ff3333;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: #ff3333;
+        }
+
+        /* モバイルメニュー - 最高級仕様 */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease 0.2s;
+        }
+
+        .mobile-menu.active .mobile-menu-links {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu-links li {
+            margin: 1.8rem 0;
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active .mobile-menu-links li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .mobile-menu-links li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu-links li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu-links li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu-links li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu-links li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu-links li:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu-links li:nth-child(7) { transition-delay: 0.7s; }
+
+        .mobile-menu-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem 2.5rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 260px;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            background: rgba(255, 51, 51, 0.3);
+            border-color: #ff3333;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
+        }
+
+        .mobile-menu-links .emoji {
+            font-size: 1.1rem;
+        }
+
         /* ヒーローセクション */
         .hero {
             height: 100vh;
@@ -105,16 +251,35 @@
             text-align: center;
             color: white;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .hero-content {
             max-width: 800px;
             padding: 2rem;
             animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
             background: linear-gradient(45deg, #fff, #ffcccc);
@@ -127,7 +292,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
             opacity: 0.95;
             font-weight: 400;
@@ -136,7 +301,7 @@
 
         .cta-buttons {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 2rem;
@@ -146,7 +311,7 @@
             display: inline-block;
             background: linear-gradient(45deg, #ff3333, #cc0000);
             color: white;
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 2.5rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
@@ -176,7 +341,7 @@
 
         /* セクション共通スタイル */
         .section {
-            padding: 5rem 2rem;
+            padding: 5rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             background: #1a1a1a;
@@ -184,7 +349,7 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 3rem;
             color: #ff6666;
             position: relative;
@@ -220,35 +385,39 @@
 
         .phone-reservation {
             background: linear-gradient(135deg, #333333 0%, #2a2a2a 100%);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 20px;
             border: 2px solid #ff6666;
             text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .phone-number {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: #ff6666;
             font-weight: bold;
             margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .reservation-form {
             background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 20px;
             border: 1px solid #444;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             color: #ff6666;
             font-weight: 600;
+            font-size: 1rem;
         }
 
         .form-group input,
@@ -261,7 +430,8 @@
             background: #1a1a1a;
             color: white;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
 
         .form-group input:focus,
@@ -269,25 +439,27 @@
         .form-group select:focus {
             outline: none;
             border-color: #ff6666;
+            box-shadow: 0 0 0 3px rgba(255, 102, 102, 0.1);
+            transform: translateY(-1px);
         }
 
         .submit-btn {
             background: linear-gradient(45deg, #ff3333, #cc0000);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             width: 100%;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(204,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(204,0,0,0.3);
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(204,0,0,0.4);
+            box-shadow: 0 12px 35px rgba(204,0,0,0.4);
         }
 
         /* ストーリーセクション */
@@ -304,8 +476,8 @@
         }
 
         .story-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.2rem;
+            line-height: 1.9;
             color: #ccc;
             font-weight: 400;
         }
@@ -355,66 +527,87 @@
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .blog-post {
             background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 1px solid #444;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
 
         .blog-post:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border-color: rgba(255, 102, 102, 0.3);
         }
 
         .blog-image {
-            height: 200px;
+            height: 220px;
             background: linear-gradient(45deg, #ff6666, #ff3333);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 70%);
         }
 
         .blog-content {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .blog-date {
             color: #ff6666;
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
         }
 
         .blog-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: white;
+            line-height: 1.4;
         }
 
         .blog-excerpt {
             color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
 
         .read-more {
             color: #ff6666;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .read-more:hover {
             color: #ff3333;
+            transform: translateX(5px);
         }
 
         /* お客様の声 */
@@ -425,30 +618,39 @@
 
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .review-card {
             background: #1a1a1a;
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid #ff6666;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border-left: 5px solid #ff6666;
             position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.4);
         }
 
         .review-stars {
             color: #ffd700;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
         }
 
         .review-text {
             color: #ccc;
-            line-height: 1.6;
+            line-height: 1.7;
             margin-bottom: 1.5rem;
             font-style: italic;
+            font-size: 1rem;
         }
 
         .review-author {
@@ -468,33 +670,35 @@
             justify-content: center;
             gap: 2rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         .sns-link {
             display: inline-block;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(45deg, #ff3333, #cc0000);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             transition: all 0.3s ease;
             text-decoration: none;
+            box-shadow: 0 8px 25px rgba(204,0,0,0.3);
         }
 
         .sns-link:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(204,0,0,0.4);
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(204,0,0,0.4);
         }
 
         /* メニューセクション */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
@@ -502,38 +706,55 @@
             background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
             color: white;
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 3px solid transparent;
             position: relative;
             overflow: hidden;
         }
 
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff3333, #ff6666);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
         .menu-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(204,0,0,0.4);
+            box-shadow: 0 20px 60px rgba(204,0,0,0.4);
             border-color: #ff6666;
         }
 
+        .menu-item:hover::before {
+            transform: scaleX(1);
+        }
+
         .menu-icon {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(45deg, #cc0000, #ff3333);
             border-radius: 50%;
-            margin: 0 auto 1rem;
+            margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: white;
             position: relative;
             z-index: 2;
+            box-shadow: 0 8px 25px rgba(204,0,0,0.3);
         }
 
         .menu-name {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #ff6666;
             margin-bottom: 1rem;
@@ -545,8 +766,8 @@
             color: #ccc;
             position: relative;
             z-index: 2;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
         }
 
         /* 特別なメニューアイテム */
@@ -562,11 +783,27 @@
 
         /* フッター */
         .footer {
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 1rem;
             border-top: 2px solid #cc0000;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,102,102,0.3), transparent);
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
         }
 
         /* アニメーション */
@@ -594,7 +831,7 @@
         .scroll-reveal {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.6s ease;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .scroll-reveal.revealed {
@@ -602,23 +839,51 @@
             transform: translateY(0);
         }
 
-        /* レスポンシブ */
+        /* レスポンシブ - スマホ最適化 */
         @media (max-width: 768px) {
+            .nav {
+                padding: 0.8rem 1rem;
+                min-height: 50px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
             .nav-links {
                 display: none;
             }
+            
+            .reservation-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                padding: 6px;
+            }
+
+            .hamburger span {
+                width: 20px;
+                height: 2.5px;
+            }
+
+            .hero {
+                height: 100vh;
+                background-attachment: scroll;
+                padding: 1rem;
+            }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
             }
 
             .hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .story-content,
-            .reservation-container {
-                grid-template-columns: 1fr;
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
             }
 
             .section {
@@ -632,11 +897,150 @@
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .story-content,
+            .reservation-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .phone-reservation,
+            .reservation-form {
+                padding: 2rem;
+            }
+
+            .phone-number {
+                font-size: 1.8rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .blog-image {
+                height: 180px;
+                font-size: 2.8rem;
+            }
+
+            .blog-content {
+                padding: 1.5rem;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .review-card {
+                padding: 2rem;
             }
 
             .sns-links {
-                gap: 1rem;
+                gap: 1.5rem;
             }
+
+            .sns-link {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .menu-item {
+                padding: 2rem;
+            }
+
+            .menu-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .mobile-menu-links a {
+                font-size: 1.1rem;
+                padding: 0.9rem 2rem;
+                min-width: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 0.6rem 0.8rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 2rem 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .phone-reservation,
+            .reservation-form,
+            .review-card,
+            .menu-item {
+                padding: 1.5rem;
+            }
+
+            .blog-content {
+                padding: 1.2rem;
+            }
+
+            .mobile-menu-links a {
+                font-size: 1rem;
+                padding: 0.8rem 1.8rem;
+                min-width: 220px;
+            }
+
+            .cta-button {
+                padding: 0.9rem 1.8rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 超高解像度対応 */
+        @media (min-width: 1400px) {
+            .section {
+                max-width: 1400px;
+            }
+
+            .menu-grid,
+            .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
+        /* ダークモード対応 */
+        @media (prefers-color-scheme: dark) {
+            /* 既にダークテーマなので追加の変更は不要 */
         }
     </style>
     <!-- Google Analytics設定（実装時に有効化） -->
@@ -654,9 +1058,9 @@
     <!-- ヘッダー -->
     <header class="header">
         <nav class="nav">
-            <div class="logo">お好み焼き 塚本</div>
+            <a href="#home" class="logo">お好み焼き 塚本</a>
             <ul class="nav-links">
-                <li><a href="#home">ホーム</a></li>
+                <li><a href="#home" class="active">ホーム</a></li>
                 <li><a href="about.html">お店について</a></li>
                 <li><a href="menu.html">メニュー</a></li>
                 <li><a href="#blog">ブログ</a></li>
@@ -664,7 +1068,25 @@
                 <li><a href="#reservation">予約</a></li>
             </ul>
             <a href="#reservation" class="reservation-btn">📞 予約する</a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+        
+        <!-- モバイルメニュー -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-menu-links">
+                <li><a href="#home" class="mobile-link active"><span class="emoji">🏠</span> ホーム</a></li>
+                <li><a href="about.html" class="mobile-link"><span class="emoji">📖</span> お店について</a></li>
+                <li><a href="menu.html" class="mobile-link"><span class="emoji">📋</span> メニュー</a></li>
+                <li><a href="#blog" class="mobile-link"><span class="emoji">📝</span> ブログ</a></li>
+                <li><a href="#reviews" class="mobile-link"><span class="emoji">⭐</span> お客様の声</a></li>
+                <li><a href="#reservation" class="mobile-link"><span class="emoji">📞</span> 予約</a></li>
+                <li><a href="#sns" class="mobile-link"><span class="emoji">📱</span> SNS</a></li>
+            </ul>
+        </div>
     </header>
 
     <!-- ヒーロー -->
@@ -872,6 +1294,26 @@
     </footer>
 
     <script>
+        // ハンバーガーメニュー - プレミアム
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // モバイルメニューリンククリック時にメニューを閉じる
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         // スムーススクロール
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -926,7 +1368,86 @@
         // 日付の最小値を今日に設定
         document.getElementById('date').min = new Date().toISOString().split('T')[0];
 
-        console.log('お好み焼き塚本 - スタンダードプランサイトが読み込まれました');
+        // タッチジェスチャー対応
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 100) {
+                if (swipeDistance > 0 && !mobileMenu.classList.contains('active')) {
+                    // 右スワイプでメニューを開く
+                    hamburger.classList.add('active');
+                    mobileMenu.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else if (swipeDistance < 0 && mobileMenu.classList.contains('active')) {
+                    // 左スワイプでメニューを閉じる
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // パフォーマンス最適化 & ダイナミックヘッダー
+        let ticking = false;
+
+        function updateOnScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const header = document.querySelector('.header');
+                    
+                    if (scrolled > 100) {
+                        header.style.background = 'rgba(26, 26, 26, 0.95)';
+                        header.style.backdropFilter = 'blur(20px)';
+                    } else {
+                        header.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%)';
+                        header.style.backdropFilter = 'blur(10px)';
+                    }
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', updateOnScroll, { passive: true });
+
+        // アクティブナビリンクの更新
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+        console.log('お好み焼き塚本 - スタンダードプラン（プレミアムスマホ最適化版）サイトが読み込まれました');
         
         // Google Analytics トラッキング（実装時に有効化）
         // gtag('event', 'page_view', {
